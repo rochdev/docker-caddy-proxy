@@ -2,4 +2,4 @@
 docker build \
   --build-arg plugins=datadog,jwt,login,auroradns,azure,cloudflare,cloudxns,digitalocean,dnsimple,dnsmadeeasy,dnspod,dyn,exoscale,gandi,gandiv5,godaddy,googlecloud,lightsail,linode,namecheap,ns1,otc,ovh,pdns,rackspace,rfc2136,route53,vultr \
   -t rochdev/caddy-proxy \
-  github.com/abiosoft/caddy-docker.git
+  github.com/abiosoft/caddy-docker.git#0.11.5
