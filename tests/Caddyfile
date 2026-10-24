@@ -1,0 +1,16 @@
+{
+	admin off
+	metrics
+}
+
+:8080 {
+	reverse_proxy localhost:8081
+}
+
+:8081 {
+	respond "proxy smoke test"
+}
+
+:9180 {
+	metrics /metrics
+}

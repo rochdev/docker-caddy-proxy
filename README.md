@@ -1,35 +1,41 @@
 # docker-caddy-proxy
 
-Caddy image from `abiosoft/caddy` as an SSL proxy in front of a web application.
+Caddy 2 image for an HTTPS reverse proxy, built with [xcaddy](https://caddyserver.com/docs/build#docker).
 
-### Plugins
+Includes supported [DNS providers](https://github.com/caddy-dns) and
+[Caddy Security](https://github.com/greenpau/caddy-security) for login and JWT
+authorization. Versions are pinned in [modules.txt](modules.txt).
+For Datadog, use Caddy's built-in [metrics](https://caddyserver.com/docs/metrics)
+with the Agent's OpenMetrics integration.
 
-* http.datadog
-* http.jwt
-* http.login
-* tls.dns.auroradns
-* tls.dns.azure
-* tls.dns.cloudflare
-* tls.dns.cloudxns
-* tls.dns.digitalocean
-* tls.dns.dnsimple
-* tls.dns.dnsmadeeasy
-* tls.dns.dnspod
-* tls.dns.dyn
-* tls.dns.exoscale
-* tls.dns.gandi
-* tls.dns.gandiv5
-* tls.dns.godaddy
-* tls.dns.googlecloud
-* tls.dns.lightsail
-* tls.dns.linode
-* tls.dns.namecheap
-* tls.dns.ns1
-* tls.dns.otc
-* tls.dns.ovh
-* tls.dns.pdns
-* tls.dns.rackspace
-* tls.dns.rfc2136
-* tls.dns.route53
-* tls.dns.vultr
-  
+## Run
+
+Create a `Caddyfile`:
+
+```caddyfile
+app.example.com {
+	reverse_proxy app:8080
+}
+```
+
+Run on the same Docker network as your application:
+
+```sh
+docker run -d --name caddy-proxy --network app-network \
+  -p 80:80 -p 443:443 -p 443:443/udp \
+  -v "$PWD/Caddyfile:/etc/caddy/Caddyfile:ro" \
+  -v caddy_data:/data \
+  -v caddy_config:/config \
+  ghcr.io/rochdev/docker-caddy-proxy:v2
+```
+
+## Build and test
+
+```sh
+docker build -t ghcr.io/rochdev/docker-caddy-proxy:v2 .
+./tests/smoke.sh
+```
+
+GitHub Actions tests pull requests and publishes successful `v2` builds to GHCR
+with `v2` and `sha-<commit>` tags. After the first publication, set the package
+visibility to Public for anonymous pulls.
