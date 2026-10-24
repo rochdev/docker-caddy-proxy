@@ -3,7 +3,7 @@
 set -euo pipefail
 
 cd "$(dirname "$0")/.."
-image="${IMAGE_NAME:-ghcr.io/rochdev/docker-caddy-proxy:v2}"
+image="${IMAGE_NAME:-ghcr.io/rochdev/caddy-proxy:v2}"
 
 docker run --rm "$image" caddy version
 modules="$(docker run --rm "$image" caddy list-modules --packages)"

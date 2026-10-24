@@ -26,13 +26,13 @@ docker run -d --name caddy-proxy --network app-network \
   -v "$PWD/Caddyfile:/etc/caddy/Caddyfile:ro" \
   -v caddy_data:/data \
   -v caddy_config:/config \
-  ghcr.io/rochdev/docker-caddy-proxy:v2
+  ghcr.io/rochdev/caddy-proxy:v2
 ```
 
 ## Build and test
 
 ```sh
-docker build -t ghcr.io/rochdev/docker-caddy-proxy:v2 .
+docker build -t ghcr.io/rochdev/caddy-proxy:v2 .
 ./tests/smoke.sh
 ```
 
