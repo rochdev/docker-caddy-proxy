@@ -12,7 +12,8 @@ RUN --mount=type=cache,target=/go/pkg/mod \
         case "$module" in ''|'#'*) continue ;; esac; \
         set -- "$@" --with "$module"; \
     done < /tmp/modules.txt; \
-    xcaddy build --output /usr/bin/caddy "$@"
+    xcaddy build --output /usr/bin/caddy "$@" \
+        --replace github.com/libdns/spaceship=github.com/empressmarissa/libdns_spaceship@6de6b57cc6d9655249e8afa1b37f8eef0bcaf50a
 
 FROM caddy:${CADDY_VERSION}
 

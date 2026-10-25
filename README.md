@@ -5,6 +5,9 @@ Caddy 2 image for an HTTPS reverse proxy, built with [xcaddy](https://caddyserve
 Includes supported [DNS providers](https://github.com/caddy-dns) and
 [Caddy Security](https://github.com/greenpau/caddy-security) for login and JWT
 authorization. Versions are pinned in [modules.txt](modules.txt).
+The Dockerfile pins a community fork of the Spaceship DNS library to fix
+ACME challenge record conversion while [the upstream fix](https://github.com/libdns/spaceship/pull/3)
+awaits review. The Caddy Spaceship wrapper remains upstream.
 For Datadog, use Caddy's built-in [metrics](https://caddyserver.com/docs/metrics)
 with the Agent's OpenMetrics integration.
 
